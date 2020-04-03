@@ -1,0 +1,45 @@
+2020-04-03 09:58:05.199 [apm-server-healthcheck] INFO co.elastic.apm.agent.report.ApmServerHealthChecker - Elastic APM server is available: {  "build_date": "2019-07-24T17:14:07Z",  "build_sha": "a6b6ca2f36a7b3fd3dfe74840fed0ef9d67cb046",  "version": "7.3.0"}
+2020-04-03 09:58:05.431 [main] INFO co.elastic.apm.agent.configuration.StartupInfo - Starting Elastic APM 1.6.1 as phoenix-batch-pp1 on Java 1.8.0_242 (Oracle Corporation) Linux 3.10.0-1062.12.1.el7.x86_64
+09:58:08.173 [main] DEBUG com.landg.phoenix.paymentraise.worker.WorkerApplication - WorkerApplication : HERE WE GO WITH SPRING BOOT WORKER
+2020-04-03 09:58:12.980  INFO 15538 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+LOGBACK: No context given for c.q.l.core.rolling.SizeAndTimeBasedRollingPolicy@20094719
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.1.RELEASE)
+
+2020-04-03 09:58:13 - Could not locate PropertySource: None of labels [] found
+2020-04-03 09:58:13 - The following profiles are active: partitionworker
+2020-04-03 09:58:19 - BeanFactory id=3ed3c5b0-4938-3857-81b9-a07eba941ee0
+2020-04-03 09:58:20 - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2020-04-03 09:58:20 - No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2020-04-03 09:58:20 - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2020-04-03 09:58:20 - Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:58:20 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:58:21 - Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:58:21 - Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:58:21 - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:58:26 - PartitionWorker : inboundFlow
+2020-04-03 09:58:27 - PartitionWorker : paymentRaiseWorkerStep
+2020-04-03 09:58:28 - HikariPool-1 - Starting...
+2020-04-03 09:58:33 - HikariPool-1 - Start completed.
+2020-04-03 09:58:36 - No database type set, using meta data indicating: POSTGRES
+2020-04-03 09:58:36 - No TaskExecutor has been set, defaulting to synchronous executor.
+2020-04-03 09:58:36 - Initializing ExecutorService 'taskScheduler'
+2020-04-03 09:58:37 - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2020-04-03 09:58:37 - Channel 'phoenix-paymentraise-batch-1.errorChannel' has 1 subscriber(s).
+2020-04-03 09:58:37 - started bean '_org.springframework.integration.errorLogger'
+2020-04-03 09:58:37 - Adding {bridge} as a subscriber to the 'inboundFlow.channel#0' channel
+2020-04-03 09:58:37 - Channel 'phoenix-paymentraise-batch-1.inboundFlow.channel#0' has 1 subscriber(s).
+2020-04-03 09:58:37 - started bean 'inboundFlow.org.springframework.integration.config.ConsumerEndpointFactoryBean#0'; defined in: 'class path resource [com/landg/phoenix/paymentraise/worker/batch/configuration/PartitionWorker.class]'; from source: 'bean method inboundFlow'
+2020-04-03 09:58:37 - Adding {service-activator} as a subscriber to the 'consumePaymentRaiseMasterRequests' channel
+2020-04-03 09:58:37 - Channel 'phoenix-paymentraise-batch-1.consumePaymentRaiseMasterRequests' has 1 subscriber(s).
+2020-04-03 09:58:37 - started bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.integration.config.ConsumerEndpointFactoryBean#0'
+2020-04-03 09:58:37 - started org.springframework.integration.jms.ChannelPublishingJmsMessageListener$GatewayDelegate@3a0807b7
+2020-04-03 09:58:37 - started bean 'inboundFlow.jms:message-driven-channel-adapter#0'; defined in: 'class path resource [com/landg/phoenix/paymentraise/worker/batch/configuration/PartitionWorker.class]'; from source: 'bean method inboundFlow'
+2020-04-03 09:58:37 - Started WorkerApplication in 28.581 seconds (JVM running for 32.657)
+2020-04-03 09:58:37 - Running default command line with: [--spring.profiles.active=partitionworker, --phoenix.landg.timetraveldate=2020-10-28, --phoenix.queue.master2worker=PR-TEMP-REQ20201028, --spring.cloud.task.executionid=2664]
