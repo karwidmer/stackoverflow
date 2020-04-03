@@ -1,0 +1,67 @@
+2020-04-03 09:12:37.602 [apm-server-healthcheck] INFO co.elastic.apm.agent.report.ApmServerHealthChecker - Elastic APM server is available: {  "build_date": "2019-07-24T17:14:07Z",  "build_sha": "a6b6ca2f36a7b3fd3dfe74840fed0ef9d67cb046",  "version": "7.3.0"}
+2020-04-03 09:12:37.779 [main] INFO co.elastic.apm.agent.configuration.StartupInfo - Starting Elastic APM 1.6.1 as phoenix-batch-pp1 on Java 1.8.0_242 (Oracle Corporation) Linux 3.10.0-1062.12.1.el7.x86_64
+09:12:39.564 [main] DEBUG com.landg.phoenix.paymentraise.master.MasterApplication - MasterApplication : HERE WE GO WITH SPRING BOOT MASTER
+2020-04-03 09:12:42.419  INFO 129518 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+LOGBACK: No context given for c.q.l.core.rolling.SizeAndTimeBasedRollingPolicy@1600667055
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.1.RELEASE)
+
+2020-04-03 09:12:42 - Could not locate PropertySource: None of labels [] found
+2020-04-03 09:12:42 - The following profiles are active: partitionmaster
+2020-04-03 09:12:44 - BeanFactory id=17720f9e-b0ac-31d7-8c94-ea6b9a86a130
+2020-04-03 09:12:44 - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2020-04-03 09:12:44 - No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2020-04-03 09:12:44 - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2020-04-03 09:12:44 - Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:44 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - Bean 'org.springframework.cloud.task.batch.configuration.TaskBatchAutoConfiguration' of type [org.springframework.cloud.task.batch.configuration.TaskBatchAutoConfiguration$$EnhancerBySpringCGLIB$$8bfd4696] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - Bean 'org.springframework.cloud.task.batch.listener.BatchEventAutoConfiguration' of type [org.springframework.cloud.task.batch.listener.BatchEventAutoConfiguration$$EnhancerBySpringCGLIB$$d4535099] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-04-03 09:12:45 - PartitionMaster : jobRemotePartitioning
+2020-04-03 09:12:45 - PartitionMaster : paymentRaiseMasterStep
+2020-04-03 09:12:45 - CustomPartitioner : timeTravelDate=2020-10-28 : leadTime=4
+2020-04-03 09:12:46 - HikariPool-1 - Starting...
+2020-04-03 09:12:47 - HikariPool-1 - Start completed.
+2020-04-03 09:12:47 - PartitionMaster : outboundJmsRequests
+2020-04-03 09:12:48 - No database type set, using meta data indicating: POSTGRES
+2020-04-03 09:12:48 - No TaskExecutor has been set, defaulting to synchronous executor.
+2020-04-03 09:12:48 - Initializing ExecutorService 'taskScheduler'
+2020-04-03 09:12:48 - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2020-04-03 09:12:48 - Channel 'phoenix-paymentraise-batch-1.errorChannel' has 1 subscriber(s).
+2020-04-03 09:12:48 - started bean '_org.springframework.integration.errorLogger'
+2020-04-03 09:12:48 - Adding {jms:outbound-channel-adapter} as a subscriber to the 'masterPaymentRaiseRequests' channel
+2020-04-03 09:12:48 - Channel 'phoenix-paymentraise-batch-1.masterPaymentRaiseRequests' has 1 subscriber(s).
+2020-04-03 09:12:48 - started bean 'outboundJmsRequests.org.springframework.integration.config.ConsumerEndpointFactoryBean#0'; defined in: 'class path resource [com/landg/phoenix/paymentraise/master/batch/configuration/PartitionMaster.class]'; from source: 'bean method outboundJmsRequests'
+2020-04-03 09:12:48 - Started MasterApplication in 9.09 seconds (JVM running for 11.766)
+2020-04-03 09:12:48 - Running default command line with: [--spring.profiles.active=partitionmaster, --phoenix.landg.timetraveldate=2020-10-28, --phoenix.queue.master2worker=PR-TEMP-REQ20201028, --spring.cloud.task.executionid=2662]
+2020-04-03 09:12:49 - Job: [FlowJob: [name=jobRemotePartitioning1585905165]] launched with the following parameters: [{-spring.profiles.active=partitionmaster, -phoenix.landg.timetraveldate=2020-10-28, -phoenix.queue.master2worker=PR-TEMP-REQ20201028, -spring.cloud.task.executionid=2662, run.id=1}]
+2020-04-03 09:12:49 - The job execution id 2449 was run within the task execution 2662
+2020-04-03 09:12:49 - Executing step: [paymentRaiseMasterStep]
+2020-04-03 09:12:49 - CustomPartitioner : partition : incoming gridSize : 5
+2020-04-03 09:12:49 - CustomPartitioner : partition : totalNonGroupCount 4384
+2020-04-03 09:12:50 - CustomPartitioner : partition : groupCountUid 4384
+2020-04-03 09:12:50 - CustomPartitioner : partition : groupMinUid 622042
+2020-04-03 09:12:50 - CustomPartitioner : partition : groupMaxUid 626425
+2020-04-03 09:12:50 - CustomPartitioner : partition : uid_difference 4383
+2020-04-03 09:12:50 - CustomPartitioner : setDynamicPartitioning : gridSize 5 groupMinUid 622042 groupMaxUid 626425 targetUidSize 2500
+2020-04-03 09:12:50 - CustomPartitioner : setDynamicPartitioning : increment start : 622042 targetUid : 624542
+2020-04-03 09:12:50 - CustomPartitioner : rangeSQLCheck : start 622042 end 624542
+2020-04-03 09:12:51 - CustomPartitioner : rangeSQLCheck : rangeSQLCheckCount : 2501
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : increment start 624542
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : partitionCount 1
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : increment start : 624542 targetUid : 627043
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : targetUid greater than groupMaxUid 627043
+2020-04-03 09:12:51 - CustomPartitioner : rangeSQLCheck : start 624542 end 626425
+2020-04-03 09:12:51 - CustomPartitioner : rangeSQLCheck : rangeSQLCheckCount : 1884
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : increment start 626425
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : partitionCount 2
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : no of dynamic results 2
+2020-04-03 09:12:51 - CustomPartitioner : setDynamicPartitioning : gridSize 2
