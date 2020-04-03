@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: phoenix-paymentraise-batch-test
+server:
+  port: 0

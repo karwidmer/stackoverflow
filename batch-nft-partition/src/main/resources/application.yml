@@ -1,0 +1,64 @@
+logging:
+  level:
+    com.landg.phoenix.paymentraise: debug
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  file: /logs/Phoenix_Payment_Raise/partitioner.log
+phoenix:
+  landg:
+    timetraveldate:
+    leadtime: 4
+  queue:
+    master2worker: PR-REQ-BATCH-QUEUE
+    temp:
+  partition:
+    size: 5
+# DB configuration
+spring:
+  main:
+    web-application-type: none
+  batch:
+    initialize-schema: embedded
+    job:
+      enabled:  true
+  datasource:
+    url: jdbc:postgresql://${PHX_APP_DB_HOST}:${PHX_APP_DB_PORT}/${PHX_APP_DB}?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory
+    username: ${PHX_APP_DB_USER}
+    password: ${PHX_APP_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      defaultAutoCommit: true
+      initial-size: 1
+      max-active: 5
+      min-idle: 0
+      max-age: 1000
+      max-wait: 20000
+    hikari:
+      maximumPoolSize: 5
+      leakDetectionThreshold: 60000
+      maxLifetime: 300000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+        use-new-id-generator-mappings: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  activemq:
+    broker-url: tcp://${ACTIVEMQ_SERVICE_HOST}:${ACTIVEMQ_SERVICE_PORT_ACTIVEMQ_TCP}
+    user: ${ACTIVEMQ_USER}
+    password: ${ACTIVEMQ_PASSWORD}
+moneyin:
+  mq:
+    filenamewithpath: /datadrive/LandG/Environments/PPTE2/phoenix-payment-request-batch/example/MIBACSIN.cbl
+    headerfilenamewithpath: /datadrive/LandG/Environments/PPTE2/phoenix-payment-request-batch/example/header.cbl
+    queuename: queue:///MIN.MNEY_RQST_CRT?targetClient=1
+  queue:
+    destination: MONEY-IN-QUEUE
+finance:
+  queue:
+    destination: PTT-TRIGGER-QUEUE-NFT-PR

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: phoenix-paymentraise-batch
+  cloud:
+    config:
+      uri:
+      name: common, ${spring.application.name}
+  profiles:
+    active: partitionmaster, partitionworker
+#   batch:
+#     job:
+#       enabled: false
+#server:
+#   port: 0

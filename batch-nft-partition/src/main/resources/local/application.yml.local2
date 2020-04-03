@@ -1,0 +1,96 @@
+logging:
+  level:
+    com.landg.phoenix: debug
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  file: /logs/Phoenix_Payment_Raise/partitioner.log
+phoenix:
+  landg:
+    timetraveldate: 2019-07-04
+    leadtime: 5
+  queue:
+    master2worker: PR-REQ-BATCH-QUEUE
+    temp:
+  partition:
+    size: 10
+  queries:
+    select-count-full-sql: >
+        SELECT COUNT(*) FROM PHOENIX_PREMIUM.PREMIUM_COMPONENT
+        WHERE (NEXT_PREM_DUE_DATE >= ? AND NEXT_PREM_DUE_DATE <= ?)
+        AND   (NEXT_PREM_DUE_DATE >= EFF_START_DATE AND NEXT_PREM_DUE_DATE <= EFF_END_DATE)
+        AND (STATUS IN ('01', '04', '05'))
+        AND POLICY IS NOT NULL
+    select-count-groupby-sql: >
+      SELECT DISTINCT(COUNT(*) OVER ()) FROM PHOENIX_PREMIUM.PREMIUM_COMPONENT
+      WHERE LAST_PAYMENT_UID IS NOT NULL
+      AND (NEXT_PREM_DUE_DATE >= ? AND NEXT_PREM_DUE_DATE <= ?)
+      AND (NEXT_PREM_DUE_DATE >= EFF_START_DATE AND NEXT_PREM_DUE_DATE <= EFF_END_DATE)
+      AND (STATUS IN ('01', '04', '05'))
+      AND POLICY IS NOT NULL
+      GROUP BY EFF_START_DATE, POLICY, COLLECTN_DAY, BANK_DETAIL_UID, STATUS, LAST_PAYMENT_UID, NEXT_PREM_DUE_DATE, NEXT_PAYT_DUE_DATE, PREM_FREQUENCY
+    select-min-groupby-sql: >
+      SELECT DISTINCT(MIN(LAST_PAYMENT_UID) OVER()) FROM PHOENIX_PREMIUM.PREMIUM_COMPONENT
+      WHERE LAST_PAYMENT_UID IS NOT NULL
+      AND (NEXT_PREM_DUE_DATE >= ? AND NEXT_PREM_DUE_DATE <= ?)
+      AND (NEXT_PREM_DUE_DATE >= EFF_START_DATE AND NEXT_PREM_DUE_DATE <= EFF_END_DATE)
+      AND (STATUS IN ('01', '04', '05'))
+      AND POLICY IS NOT NULL
+      GROUP BY EFF_START_DATE, POLICY, COLLECTN_DAY, BANK_DETAIL_UID, STATUS, LAST_PAYMENT_UID, NEXT_PREM_DUE_DATE, NEXT_PAYT_DUE_DATE, PREM_FREQUENCY
+    select-max-groupby-sql: >
+      SELECT DISTINCT(MAX(LAST_PAYMENT_UID) OVER()) FROM PHOENIX_PREMIUM.PREMIUM_COMPONENT
+      WHERE LAST_PAYMENT_UID IS NOT NULL
+      AND (NEXT_PREM_DUE_DATE >= ? AND NEXT_PREM_DUE_DATE <= ?)
+      AND (NEXT_PREM_DUE_DATE >= EFF_START_DATE AND NEXT_PREM_DUE_DATE <= EFF_END_DATE)
+      AND (STATUS IN ('01', '04', '05'))
+      AND POLICY IS NOT NULL
+      GROUP BY EFF_START_DATE, POLICY, COLLECTN_DAY, BANK_DETAIL_UID, STATUS, LAST_PAYMENT_UID, NEXT_PREM_DUE_DATE, NEXT_PAYT_DUE_DATE, PREM_FREQUENCY
+    select-partition-reader-groupby-sql: >
+      SELECT SELECT SUM (PREM_AMOUNT) AS PREM_SUM, POLICY, EFF_START_DATE, COLLECTN_DAY, BANK_DETAIL_UID, STATUS, LAST_PAYMENT_UID, NEXT_PREM_DUE_DATE, NEXT_PAYT_DUE_DATE, PREM_FREQUENCY
+      FROM PHOENIX_PREMIUM.PREMIUM_COMPONENT
+      WHERE LAST_PAYMENT_UID IS NOT NULL
+      AND (LAST_PAYMENT_UID >= ? AND LAST_PAYMENT_UID <= ?)
+      AND (NEXT_PREM_DUE_DATE >= ? AND NEXT_PREM_DUE_DATE <= ?)
+      AND (NEXT_PREM_DUE_DATE >= EFF_START_DATE AND NEXT_PREM_DUE_DATE <= EFF_END_DATE)
+      AND (STATUS IN ('01', '04', '05'))
+      AND POLICY IS NOT NULL
+      GROUP BY EFF_START_DATE, POLICY, COLLECTN_DAY, BANK_DETAIL_UID, STATUS, LAST_PAYMENT_UID, NEXT_PREM_DUE_DATE, NEXT_PAYT_DUE_DATE, PREM_FREQUENCY
+      ORDER BY LAST_PAYMENT_UID DESC
+# DB configuration
+spring:
+  main:
+    web-application-type: none
+  batch:
+    initialize-schema: embedded
+    job:
+      enabled:  true
+  datasource:
+    url: jdbc:postgresql://${PHX_APP_DB_HOST}:${PHX_APP_DB_PORT}/${PHX_APP_DB}?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory
+    username: ${PHX_APP_DB_USER}
+    password: ${PHX_APP_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      defaultAutoCommit: true
+      initial-size: 1
+      max-active: 5
+      min-idle: 0
+      max-age: 1000
+      max-wait: 20000
+    hikari:
+      maximumPoolSize: 5
+      leakDetectionThreshold: 60000
+      maxLifetime: 300000
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+        use-new-id-generator-mappings: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  activemq:
+    broker-url: tcp://${ACTIVEMQ_SERVICE_HOST}:${ACTIVEMQ_SERVICE_PORT_ACTIVEMQ_TCP}
+    user: ${ACTIVEMQ_USER}
+    password: ${ACTIVEMQ_PASSWORD}

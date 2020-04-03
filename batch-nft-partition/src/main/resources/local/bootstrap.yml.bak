@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: phoenix-paymentraise-batch
+  cloud:
+    config:
+      uri: http://localhost:6441
+      name: common, ${spring.application.name}
+  profiles:
+    active: local
+  batch:
+    job:
+      enabled: false
+server:
+  port: 0
